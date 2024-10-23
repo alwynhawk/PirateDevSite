@@ -1,0 +1,554 @@
+:root {
+  --deep-sea: #0a3d62;
+  --weathered-wood: #6e4e1e;
+  --treasure-gold: #e9d14b;
+  --parchment: #f0e6d2;
+  --dark-wood: #3c2f2f;
+}
+
+body {
+  background-color: var(--deep-sea);
+  color: var(--parchment);
+  margin: 0;
+  padding: 0;
+  font-family: 'Fira Code', monospace;
+  transition: background-color 2s ease;
+}
+
+body.dark-mode {
+  background-color: #081017; /* Darker shade of blue */
+}
+.navbar {
+  position: fixed;
+  top: 10px;
+  padding: 10px 20px;
+  z-index: 1000;
+  background-color: var(--weathered-wood);
+  transition: top 0.3s ease, padding 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin: 0 auto;
+  width: calc(100% - 40px);
+  max-width: 920px;
+}
+
+.navbar .logo {  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logo img {
+  height: 40px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.navbar .nav-links {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.navbar a:not(.logo) {
+  color: var(--parchment);
+  text-align: center;
+  padding: 10px 14px;
+  text-decoration: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  margin: 0 10px;
+  font-weight: 600;
+}
+
+.navbar a:not(.logo):hover {
+  background-color: var(--treasure-gold);
+  color: var(--dark-wood);
+}
+
+.navbar a:not(.logo).active::after {
+  background-color: var(--treasure-gold);
+}
+.navbar a:not(.logo):hover {
+  color: black; /* Change text color to black */
+  background-color: var(--treasure-gold); /* Change background color to gold */
+}
+.navbar .logo:hover {
+  background-color: transparent;
+}
+
+.navbar a:not(.logo).active {
+  position: relative;
+}
+
+.navbar a:not(.logo).active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background-color: var(--treasure-gold);
+  border-radius: 2px;
+}
+
+.cloud {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.3;
+  filter: blur(3px);
+}
+
+.cloud1 {
+  position: fixed;
+  top: -50%;
+  left: 5%;
+  width: 2100px;
+  height: 1050px;
+  background-image: url('images/cloud1.png');
+  animation: float 120s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.cloud2 {
+  position: fixed;
+  top: 10%;
+  left: 40%;
+  width: 3150px;
+  height: 1575px;
+  background-image: url('images/cloud2.png');
+  animation: float 150s linear infinite reverse;
+  pointer-events: none;
+}
+
+.cloud3 {
+  position: fixed;
+  top: 10%;
+  left: -20%;
+  width: 1680px;
+  height: 840px;
+  background-image: url('images/cloud3.png');
+  animation: float 180s linear infinite;
+  pointer-events: none;
+}
+.sun {
+  position: absolute;
+  top: -53%;
+  left: -34rem;
+  width: 1200px; /* Increased from 1000px */
+  height: 1200px; /* Increased from 1000px */
+  background-image: url('images/sun.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.5;
+  filter: blur(2px);
+  pointer-events: none;
+  transition: transform 1s ease-in-out;
+}
+.sun-moved {
+  transform: translateX(200%) rotate(180deg);
+
+  transform: translateX(200%) rotate(180deg); /* Moves to the sun's original position */
+
+}
+
+
+.moon-visible {
+    opacity: 0.5;
+    transform: translateX(-200%);
+  }
+.moon {
+  position: absolute;
+  top: -2%;
+  left: -33rem; /* Positioned to the left of the sun */
+  width: 250px;
+  height: 250px;
+  background-image: url('images/moon.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.8;
+  filter: blur(1px);
+  pointer-events: none;
+  transition: transform 1s ease-in-out;
+  z-index: -1;
+}
+
+.moon-moved {
+  transform: translateX(200%); /* Moves to the sun's original position */
+}
+.navbar-container {
+  display: sticky;
+  align-items: center;
+  width: 90%;
+  max-width: 1100px;
+  margin: 10px auto;
+}
+
+.navbar {
+  flex-grow: 1;
+}
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 20px; /* Position at the bottom */
+  right: 20px;  /* Position at the right */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1000;
+}
+.moon-icon {
+  width: 40px; /* Increased width */
+  height: 40px; /* Increased height */
+  transition: transform 0.3s ease;
+}
+.dark-mode-toggle:hover .moon-icon {
+  transform: scale(1.1);
+}
+@media screen and (max-width: 768px) {
+  .navbar {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    transition: scroll-left 0.3s ease-in-out;
+    width: calc(100% - 100px);
+  }
+
+  .navbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .navbar .nav-links {
+    display: inline-flex;
+  }
+
+  .navbar a:not(.logo) {
+    flex-shrink: 0;
+  }
+
+  .dark-mode-toggle {
+    right: 10px;
+  }
+}
+
+
+
+
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+}.fishing-rod {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100vh;
+  background-color: #8B4513;
+  z-index: 9;
+}
+
+
+.content-container {
+  padding-top: 100vh; /* This pushes the content below the initial viewport */
+}
+
+.content-section {
+  height: 100vh;
+  padding: 20px;
+  background-color: var(--deep-sea);
+  color: var(--parchment);
+}
+
+.cloud {
+  mix-blend-mode: screen;
+}
+
+.water-overlay {
+  position: fixed;
+  top: -10%; 
+  left: 0;
+  width: 100%;
+  height: 150%; 
+  background-image: url('images/water.gif');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 1;
+  animation: slowMotion 40s steps(20) infinite;
+  filter: blur(3px);
+  mix-blend-mode: difference;
+}
+
+@keyframes slowMotion {
+  from { background-position: 0 0; }
+  to { background-position: 100% 0; }
+}
+
+.navbar, .content-container{
+  position: relative;
+  z-index: 2;
+}
+
+body {
+  cursor: url('images/Cursor/cursor1.png'), auto;
+}
+
+/* You can use cursor2 for clickable elements */
+a, button, .clickable {
+  cursor: url('images/Cursor/cursor2.png'), pointer;
+}
+.treasure-chest {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 70px;
+  height: auto;
+  opacity: 0.3;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+
+.anchor-image {
+  height: 200vh;
+  width: auto;
+  object-fit: cover;
+  object-position: bottom;
+  
+}
+
+.content-container {
+  padding-top: 100vh; /* This pushes the content below the initial viewport */
+}
+
+.content-section {
+  height: 100vh;
+  padding: 20px;
+  background-color: var(--deep-sea);
+  color: var(--parchment);
+}
+
+.placeholder-text {
+  margin-top: 280vh; /* This adds extra space before the text */
+  padding: 20px;
+  
+  color: var(--parchment);
+  text-align: center;
+}
+.content-container {
+  min-height: 300vh;
+  position: relative;
+  padding-bottom: 100vh; /* This adds extra space after the content */
+}
+.placeholder-text p {
+  margin-bottom: 2em;
+}
+
+.content-container {
+  padding-top: 100vh; /* This pushes the content below the initial viewport */
+}
+
+.content-section {
+  height: 100vh;
+  padding: 20px;
+  background-color: var(--deep-sea);
+  color: var(--parchment);
+}
+.anchor-container {
+  position: fixed;
+  bottom: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  transition: transform 0.3s ease-out;
+  display: flex;
+  align-items: center;
+}
+
+.anchor-image {
+  height: 200vh;
+  width: auto;
+  object-fit: cover;
+  object-position: bottom;
+  filter: blur(.5px);
+}
+.anchor-text {
+  margin-left: 10px; /* Space between the image and text */
+  color: var(--parchment);
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.3s ease;
+}
+
+.anchor-container:hover .anchor-text {
+  opacity: 1; /* Show text on hover */
+}
+
+.anchor-text {
+  margin-left: 10px; /* Space between the image and text */
+  color: var(--parchment);
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.3s ease;
+}
+.key-image {
+  position: fixed;
+  bottom: -26px;
+  left: 42%;
+  transform: translateX(-50%);
+  opacity: 1;
+  transition: all 0.3s ease;
+  width: 250px;
+  height: auto;
+  cursor: url('images/Cursor/cursor2.png'), pointer;
+  z-index: 9999;
+  pointer-events: all;
+  display: block;
+  user-select: none;
+}
+
+.key-image:hover {
+  transform: translateX(-50%) scale(1.2);
+  filter: brightness(1.2);
+}
+.navbar .logo img {
+  height: 40px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  transition: transform 0.5s ease-in-out;
+}
+
+.navbar .logo:hover img {
+  animation: rock-and-grow 0.6s ease-in-out;
+}
+
+@keyframes rock-and-grow {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-45deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(45deg) scale(1.1);
+  }
+}
+
+.key-image {
+  position: fixed;
+  bottom: -26px;
+  left: 50%;  /* Changed from 42% to 50% to center it */
+  transform: translateX(-50%);
+  opacity: 1;
+  transition: all 0.3s ease;
+  width: 250px;
+  height: auto;
+  cursor: url('images/Cursor/cursor2.png'), pointer;
+  z-index: 9999;
+  pointer-events: all;
+  display: block;
+  user-select: none;
+}
+
+.key-image:hover {
+  transform: translateX(-50%) scale(1.2);
+  filter: brightness(1.2);
+}.bird-left {
+  position: fixed;
+  width: 300px;
+  height: auto;
+  z-index: -2; /* Now birds will fly behind the anchor */
+  pointer-events: none;
+  filter: brightness(0);
+  opacity: 0.3;
+}
+
+.bird-right {
+  position: fixed;
+  width: 300px;
+  height: auto;
+  z-index: -2; /* Now birds will fly behind the anchor */
+  pointer-events: none;
+  transform: scaleX(-1);
+  filter: brightness(0);
+  opacity: 0.3;
+}
+.scroll-container {
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+}
+.scroll-image {
+  width: 800px;
+  height: auto;
+  animation: scrollGlow 3s ease-in-out infinite;
+}
+
+@keyframes scrollGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(135, 206, 250, 0.3))
+           drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(0, 191, 255, 0.4))
+           drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+  }
+}
+.scroll-text {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(19, 19, 19);
+  font-size: 20px;
+  font-weight: bold;
+  width: 60%;
+}
+
+.scroll-container {
+  position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 240px;
+  right: 55px;
+  font-size: 10px;
+  opacity: 0.2;
+  color: black;
+  font-style: italic;
+  pointer-events: none;
+}
